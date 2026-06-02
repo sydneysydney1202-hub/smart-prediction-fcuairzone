@@ -21,7 +21,7 @@ router.get('/', async (req: Request, res: Response) => {
 
     // 為每個地點獲取最新狀態
     const locationsWithStatus = await Promise.all(
-      result.rows.map(async (loc) => {
+      result.rows.map(async (loc: { id: string; name: string; latitude: string; longitude: string }) => {
         const statusResult = await pool.query(
           `SELECT crowd_level, temperature, submitted_at
            FROM location_submissions
